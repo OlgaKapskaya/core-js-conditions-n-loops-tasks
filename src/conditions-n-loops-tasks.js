@@ -38,14 +38,14 @@ function isPositive(number) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(a, b,c) {
+function getMaxNumber(a, b, c) {
   if (a > b && a > c) {
     return a;
-  } else if (b>a && b>c) {
-    return b
-  } else {
-    return c
   }
+  if (b > a && b > c) {
+    return b;
+  }
+  return c;
 }
 
 /**
@@ -67,7 +67,11 @@ function getMaxNumber(a, b,c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
 function canQueenCaptureKing(queen, king) {
-  return queen.x === king.x || queen.y === king.y || Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  return (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  );
 }
 
 /**
@@ -90,16 +94,18 @@ function canQueenCaptureKing(queen, king) {
  */
 function isIsoscelesTriangle(a, b, c) {
   if (a && b && c) {
-    if (a === b && a+b > c) {
-      return true
-    } else if (c === b && c+b > a) {
-      return true
-    } else if (c === a && c+a > b) {
-      return true
+    if (a === b && a + b > c) {
+      return true;
+    }
+    if (c === b && c + b > a) {
+      return true;
+    }
+    if (c === a && c + a > b) {
+      return true;
     }
   }
 
-  return  false
+  return false;
 }
 
 /**
@@ -116,13 +122,28 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(num ) {
-  const data = {M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90, L: 50, XL: 40, X: 10, IX: 9, V: 5, IV: 4, I: 1};
+function convertToRomanNumerals(num) {
+  let number = num;
+  const data = {
+    M: 1000,
+    CM: 900,
+    D: 500,
+    CD: 400,
+    C: 100,
+    XC: 90,
+    L: 50,
+    XL: 40,
+    X: 10,
+    IX: 9,
+    V: 5,
+    IV: 4,
+    I: 1,
+  };
   let res = '';
-  for (let i in data) {
-    while (num >= data[i]) {
+  for (const i in data) {
+    while (number >= data[i]) {
       res += i;
-      num -= data[i];
+      number -= data[i];
     }
   }
   return res;
@@ -146,26 +167,28 @@ function convertToRomanNumerals(num ) {
 function convertNumberToString(numberStr) {
   const data = {
     '-': 'minus',
-    '0': 'zero',
-    '1': 'one',
-    '2': 'two',
-    '3': 'three',
-    '4': 'four',
-    '5': 'five',
-    '6': 'six',
-    '7': 'seven',
-    '8': 'eight',
-    '9': 'nine',
+    0: 'zero',
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four',
+    5: 'five',
+    6: 'six',
+    7: 'seven',
+    8: 'eight',
+    9: 'nine',
   };
   let res = '';
 
-  for (let i=0; i<numberStr.length; i++) {
-    if (numberStr[i] == '.' || numberStr[i] == ',') {
-      res += i !== numberStr.length-1 ? 'point ' : 'point';
+  for (let i = 0; i < numberStr.length; i += 1) {
+    if (numberStr[i] === '.' || numberStr[i] === ',') {
+      res += i !== numberStr.length - 1 ? 'point ' : 'point';
     } else {
-      res += i !== numberStr.length-1 ? `${data[numberStr[i]]} ` : `${data[numberStr[i]]}` ;
+      res +=
+        i !== numberStr.length - 1
+          ? `${data[numberStr[i]]} `
+          : `${data[numberStr[i]]}`;
     }
-
   }
   return res;
 }
@@ -185,11 +208,11 @@ function convertNumberToString(numberStr) {
 function isPalindrome(str) {
   let newStr = '';
 
-  for (let i=str.length-1; i>=0; i--) {
+  for (let i = str.length - 1; i >= 0; i -= 1) {
     newStr += str[i];
   }
 
-  return newStr === str
+  return newStr === str;
 }
 
 /**
@@ -208,13 +231,13 @@ function isPalindrome(str) {
  */
 function getIndexOf(str, letter) {
   let index = -1;
-  for (let i=0; i<str.length; i++) {
+  for (let i = 0; i < str.length; i += 1) {
     if (str[i] === letter) {
       index = i;
       break;
     }
   }
-  return index
+  return index;
 }
 
 /**
@@ -234,12 +257,12 @@ function getIndexOf(str, letter) {
  */
 function isContainNumber(num, digit) {
   const str = `${num}`;
-  for (let i=0; i<str.length; i++) {
+  for (let i = 0; i < str.length; i += 1) {
     if (str[i] === `${digit}`) {
-      return true
+      return true;
     }
   }
-  return false
+  return false;
 }
 
 /**
@@ -255,9 +278,7 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(arr) {
-
-}
+function getBalanceIndex(arr) {}
 
 /**
  * Generates a spiral matrix of a given size, filled with numbers in ascending order starting from one.
