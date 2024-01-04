@@ -140,12 +140,12 @@ function convertToRomanNumerals(num) {
     I: 1,
   };
   let res = '';
-  for (const i in data) {
-    while (number >= data[i]) {
-      res += i;
-      number -= data[i];
+  Object.entries(data).forEach(([romanNumeral, value]) => {
+    while (number >= value) {
+      res += romanNumeral;
+      number -= value;
     }
-  }
+  });
   return res;
 }
 
@@ -278,7 +278,30 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(arr) {}
+function getBalanceIndex(arr) {
+  if (arr.length < 3) {
+    return -1;
+  }
+
+  for (let i = 1; i < arr.length - 1; i += 1) {
+    let leftSum = 0;
+    let rightSum = 0;
+
+    for (let j = 0; j < i; j += 1) {
+      leftSum += arr[j];
+    }
+
+    for (let k = i + 1; k < arr.length; k += 1) {
+      rightSum += arr[k];
+    }
+
+    if (leftSum === rightSum) {
+      return i;
+    }
+  }
+
+  return -1;
+}
 
 /**
  * Generates a spiral matrix of a given size, filled with numbers in ascending order starting from one.
