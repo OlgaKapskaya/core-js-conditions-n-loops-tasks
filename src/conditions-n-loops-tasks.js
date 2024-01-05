@@ -124,29 +124,36 @@ function isIsoscelesTriangle(a, b, c) {
  */
 function convertToRomanNumerals(num) {
   let number = num;
-  const data = {
-    M: 1000,
-    CM: 900,
-    D: 500,
-    CD: 400,
-    C: 100,
-    XC: 90,
-    L: 50,
-    XL: 40,
-    X: 10,
-    IX: 9,
-    V: 5,
-    IV: 4,
-    I: 1,
-  };
-  let res = '';
-  Object.entries(data).forEach(([romanNumeral, value]) => {
-    while (number >= value) {
-      res += romanNumeral;
-      number -= value;
+  const romanSymbols = [
+    'I',
+    'IV',
+    'V',
+    'IX',
+    'X',
+    'XL',
+    'L',
+    'XC',
+    'C',
+    'XL',
+    'L',
+    'XC',
+    'C',
+    'CD',
+    'D',
+    'CM',
+    'M',
+  ];
+  const romanValues = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
+  let romanNumeral = '';
+
+  for (let i = romanValues.length - 1; i >= 0; i -= 1) {
+    while (number >= romanValues[i]) {
+      romanNumeral += romanSymbols[i];
+      number -= romanValues[i];
     }
-  });
-  return res;
+  }
+
+  return romanNumeral;
 }
 
 /**
@@ -324,9 +331,7 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
-}
+function getSpiralMatrix(/*size*/) {}
 
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
@@ -361,8 +366,21 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const n = arr.length;
+  const res = arr;
+
+  for (let i = 0; i < n - 1; i += 1) {
+    for (let j = 0; j < n - i - 1; j += 1) {
+      if (res[j] > res[j + 1]) {
+        const temp = res[j];
+        res[j] = res[j + 1];
+        res[j + 1] = temp;
+      }
+    }
+  }
+
+  return res;
 }
 
 /**
@@ -382,8 +400,24 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let shuffledStr = str;
+
+  for (let iter = 0; iter < iterations; iter += 1) {
+    let newStr = '';
+
+    for (let i = 0; i < shuffledStr.length; i += 2) {
+      newStr += shuffledStr[i];
+    }
+
+    for (let i = 1; i < shuffledStr.length; i += 2) {
+      newStr += shuffledStr[i];
+    }
+
+    shuffledStr = newStr;
+  }
+
+  return shuffledStr;
 }
 
 /**
